@@ -14,23 +14,15 @@ int strgLen(const char *s) {
 }
 
 void strgCopy(char *dest, char *src) {
-    // May have to fix this
     if ((dest == NULL) || (src == NULL))
         return;
-    /*
-    int i = 0;
-    while (dest[i] && src[i]){
-        dest[i] = src[i];
-        i++;
-    }
-    */
     while (*dest){ // While we have not reached the null character
         if (*src){ // See if the source string has another character
             *dest = *src; // If so, copy it and move on
             src++;
         }
         else // The source string has ended
-            *dest = 0x20; // We will fill the destination string with empty space
+            *dest = 0; // We will fill the destination string with the null terminator
         dest++;
     }
     (void)dest;
@@ -38,7 +30,18 @@ void strgCopy(char *dest, char *src) {
 }
 
 void strgChangeCase(char *s) {
-    // TODO: implement
+    if ((s == NULL) || !s[0]) // Immediately return if string is empty
+        return; // Or if a null pointer is given
+    int i = 1;
+    while (s[i]){ // First see if the surrounding characters are numbers
+        if ((s[i + 1] >= '0' && s[i + 1] <= '9') && (s[i - 1] >= '0' && s[i - 1] <= '9')){
+            if (s[i] >= 'A' && s[i] <= 'Z')
+                s[i] += 32;
+            if (s[i] >= 'a' && s[i] <= 'z')
+                s[i] -= 32;
+        }
+        i++;
+    }
     (void)s;
 }
 
@@ -61,6 +64,16 @@ void strgReverseLetters(char *s) {
     (void)s;
 }
 
+void testing(char *s){
+    if (s == NULL)
+        return;
+    int count = 1;
+    while (*s){
+        printf("%d: %c", count, *s);
+        s++;
+        count++;
+    }
+}
 
 
 /**
@@ -90,8 +103,9 @@ int main(int argc, char* argv[]){
     printf("%d\n", strgLen("Hello world")); // 11 */
 
     // strgCopy
-    /*
-    char destination[] = "abcdefghijklmnopqrst";
+    // char destination[] = "abcdefghijklmnopqrst";
+    char destination[32] = {0};
+    testing(destination);
     // Most of the test cases should print the same as the input function
     // So the first one should print "Computer Science" as normal
     // However, the one with the letters of the alphabet should print up to t
@@ -116,7 +130,9 @@ int main(int argc, char* argv[]){
     strgCopy(destination, NULL);
     printf("%s\n", destination);
     strgCopy(destination, "0");
-    printf("%s\n", destination); */
+    printf("%s\n", destination);
+
+    // strgChangeCase
 
 	return 0;
 }
