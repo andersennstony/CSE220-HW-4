@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include "caesar.h" 
-#include "strPtr.h"
+#include "strgPtr.h"
 
 /**
  *  Feel free to use the functions that you made in strPtr.c
