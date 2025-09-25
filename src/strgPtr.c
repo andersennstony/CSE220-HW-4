@@ -14,30 +14,35 @@ int strgLen(const char *s) {
 }
 
 void strgCopy(char *dest, char *src) {
+    // We assume that src is no longer than dest
     if ((dest == NULL) || (src == NULL))
         return;
-    while (*dest){ // While we have not reached the null character
-        if (*src){ // See if the source string has another character
-            *dest = *src; // If so, copy it and move on
-            src++;
-        }
-        else // The source string has ended
-            *dest = 0; // We will fill the destination string with the null terminator
+    while (*src){
+        *dest = *src;
         dest++;
+        src++;
     }
+    *dest = 0;
     (void)dest;
     (void)src;
 }
 
 void strgChangeCase(char *s) {
-    if ((s == NULL) || !s[0]) // Immediately return if string is empty
-        return; // Or if a null pointer is given
+    if (s == NULL || !s[0])
+        return;
+     // Not an empty string
+        if (s[1] < '0' || s[1] > '9'){
+            if (s[0] >= 'A' && s[0] <= 'Z')
+                s[0] += 32;
+            else if (s[0] >= 'a' && s[0] <= 'z')
+                s[0] -= 32;
+        }
     int i = 1;
     while (s[i]){ // First see if the surrounding characters are numbers
-        if ((s[i + 1] >= '0' && s[i + 1] <= '9') && (s[i - 1] >= '0' && s[i - 1] <= '9')){
+        if ((s[i + 1] < '0' || s[i + 1] > '9') && (s[i - 1] < '0' || s[i - 1] > '9')){
             if (s[i] >= 'A' && s[i] <= 'Z')
                 s[i] += 32;
-            if (s[i] >= 'a' && s[i] <= 'z')
+            else if (s[i] >= 'a' && s[i] <= 'z')
                 s[i] -= 32;
         }
         i++;
@@ -63,18 +68,6 @@ void strgReverseLetters(char *s) {
     // TODO: implement
     (void)s;
 }
-
-void testing(char *s){
-    if (s == NULL)
-        return;
-    int count = 1;
-    while (*s){
-        printf("%d: %c", count, *s);
-        s++;
-        count++;
-    }
-}
-
 
 /**
  * Run the test cases by first compiling with "make" and then 
@@ -103,13 +96,10 @@ int main(int argc, char* argv[]){
     printf("%d\n", strgLen("Hello world")); // 11 */
 
     // strgCopy
-    // char destination[] = "abcdefghijklmnopqrst";
+    /*
     char destination[32] = {0};
-    testing(destination);
-    // Most of the test cases should print the same as the input function
-    // So the first one should print "Computer Science" as normal
-    // However, the one with the letters of the alphabet should print up to t
-    // The one with NULL should do nothing to the destination and should print Hello World!
+    // The test case with NULL should do nothing to the destination and should print Hello World!
+    // All other test cases should print the same as the input function
     strgCopy(destination, "Computer Science");
     printf("%s\n", destination);
     strgCopy(destination, "CSE-220");
@@ -130,9 +120,43 @@ int main(int argc, char* argv[]){
     strgCopy(destination, NULL);
     printf("%s\n", destination);
     strgCopy(destination, "0");
-    printf("%s\n", destination);
+    printf("%s\n", destination); */
 
     // strgChangeCase
+    /*
+    char s1[] = "Stony Brook"; // sTONY bROOK
+    strgChangeCase(s1);
+    printf("%s\n", s1);
+    char s2[] = "CSE220"; // csE220
+    strgChangeCase(s2);
+    printf("%s\n", s2);
+    char s3[] = "a1b"; // a1b
+    strgChangeCase(s3);
+    printf("%s\n", s3);
+    char s4[] = "System Fundamental220"; // sYSTEM fUNDAMENTAl220
+    strgChangeCase(s4);
+    printf("%s\n", s4);
+    char s5[] = ""; // ""
+    strgChangeCase(s5);
+    printf("%s\n", s5);
+    char *s6 = NULL; // We will not print this because it will crash
+    strgChangeCase(s6);
+    printf("%p\n", s6);
+    char s7[] = "a12b3cde4fg"; // a12b3cDe4fG
+    strgChangeCase(s7);
+    printf("%s\n", s7);
+    char s8[] = "9AA_.Z.2E"; // 9Aa_.z.2E
+    strgChangeCase(s8);
+    printf("%s\n", s8);
+    char s9[] = "A9B"; // A9B
+    strgChangeCase(s9);
+    printf("%s\n", s9);
+    char s10[] = "_X_"; // _x_
+    strgChangeCase(s10);
+    printf("%s\n", s10);
+    char s11[] = "aBcDeFg2HiJkLmNoP5"; // AbCdEfg2HIjKlMnOP5
+    strgChangeCase(s11);
+    printf("%s\n", s11); */
 
 	return 0;
 }

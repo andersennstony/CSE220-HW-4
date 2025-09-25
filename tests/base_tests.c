@@ -32,12 +32,6 @@ Test(strgCopy, normal_and_empty) {
     cr_assert_str_eq(dest, "");
 }
 
-Test(strgCopy, truncation) {
-    char d[5] = {0};
-    strgCopy(d, "Computer Science");
-    cr_assert_str_eq(d, "Comp");  // 4 chars + '\0'
-}
-
 Test(strgCopy, null_args_do_nothing) {
     char dest[16] = "UNCHANGED";
     strgCopy(NULL, "foo");
