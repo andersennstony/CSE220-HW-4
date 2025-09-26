@@ -2,9 +2,17 @@
 #include "caesar.h" 
 #include "strgPtr.h"
 
-/**
- *  Feel free to use the functions that you made in strPtr.c
-*/ 
+int strgLen(const char *s) {
+    // Does not include the null character
+    if (s == NULL)
+        return -1;
+    int count = 0;
+    while (*s){
+        s++;
+        count++;
+    }
+    return count;
+}
 
 int encryptCaesar(const char *plaintext, char *ciphertext, int key) {
 	// TODO: implement
