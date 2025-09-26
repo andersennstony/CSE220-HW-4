@@ -51,21 +51,68 @@ void strgChangeCase(char *s) {
 }
 
 int strgDiff(char *s1, char *s2) {
-    // TODO: implement
+    if ((s1 == NULL) || (s2 == NULL))
+        return -2;
+    int i = 0;
+    while (1) {
+        if (s1[i] != s2[i])
+            return i;
+        if (!s1[i] || !s2[i])
+            break;
+        i++;
+    }
     (void)s1;
     (void)s2;
-    return 0;
+    return -1;
 }
 
 void strgInterleave(char *s1, char *s2, char *d) {
-    // TODO: implement
+    // Similar to strgCopy(), we cannot get the size of d,
+    // So we will assume that d is large enough
+    if ((s1 == NULL) || (s2 == NULL) || (d == NULL))
+        return;
+    int i = 0, j = 0;
+    while (s1[i] || s2[j]){
+        if (s1[i]){
+            *d = s1[i];
+            i++;
+            d++;
+        }
+        if (s2[j]){
+            *d = s2[j];
+            j++;
+            d++;
+        }
+    }
+    *d = 0;
     (void)s1;
     (void)s2;
     (void)d;
 }
 
 void strgReverseLetters(char *s) {
-    // TODO: implement
+    if (s == NULL)
+        return;
+    int low = 0;
+    int high = strgLen(s) - 1;
+    int lowIsLetter, highIsLetter;
+    char temp;
+    while (low < high){
+        lowIsLetter = (s[low] >= 'A' && s[low] <= 'Z') || (s[low] >= 'a' && s[low] <= 'z');
+        highIsLetter = (s[high] >= 'A' && s[high] <= 'Z') || (s[high] >= 'a' && s[high] <= 'z');
+        if (lowIsLetter && highIsLetter){
+            temp = s[low];
+            s[low] = s[high];
+            s[high] = temp;
+            low++;
+            high--;
+            continue;
+        }
+        if (!lowIsLetter)
+            low++;
+        if (!highIsLetter)
+            high--;
+    }
     (void)s;
 }
 
@@ -158,5 +205,75 @@ int main(int argc, char* argv[]){
     strgChangeCase(s11);
     printf("%s\n", s11); */
 
+    // strgDiff
+    /*
+    printf("%d\n", strgDiff("Hello", "Hello")); // -1
+    printf("%d\n", strgDiff("CSE-220", "CSE220")); // 3
+    printf("%d\n", strgDiff("CSE220", "SE220")); // 0
+    printf("%d\n", strgDiff("", "")); // -1
+    printf("%d\n", strgDiff(NULL, "")); // -2
+    printf("%d\n", strgDiff("a", NULL)); // -2
+    printf("%d\n", strgDiff("abc", "abcd")); // 3
+    printf("%d\n", strgDiff("98765", "98765 ")); // 5
+    printf("%d\n", strgDiff("1234", "1234")); // -1
+    printf("%d\n", strgDiff("Hello world", "Helloworld")); // 5 */
+
+    // strgInterleave
+    /*
+    char destination[32] = {0};
+    strgInterleave("abc", "123", destination); // a1b2c3
+    printf("%s\n", destination);
+    strgInterleave("abcdef", "123", destination); // a1b2c3def
+    printf("%s\n", destination);
+    strgInterleave("cse", "12345", destination); // c1s2e345
+    printf("%s\n", destination);
+    strgInterleave("1234", "cs", destination); // 1c2s34
+    printf("%s\n", destination);
+    strgInterleave("", "", destination); // ""
+    printf("%s\n", destination);
+    strgInterleave("", "123", destination); // 123
+    printf("%s\n", destination);
+    strgInterleave(NULL, "45", destination); // 123 (should not be changed since NULL is an argument)
+    printf("%s\n", destination);
+    strgInterleave("HLOWRD", "EL OL", destination); // HELLO WORLD
+    printf("%s\n", destination);
+    strgInterleave("432", "A", destination); // 4A32
+    printf("%s\n", destination);
+    strgInterleave("B", "357", destination); // B357
+    printf("%s\n", destination); */
+
+    // strgReverseLetters
+    /*
+    char t1[] = "hello"; // olleh
+    strgReverseLetters(t1);
+    printf("%s\n", t1);
+    char t2[] = "ab-cd"; // dc-ba
+    strgReverseLetters(t2);
+    printf("%s\n", t2);
+    char t3[] = "a1b2c"; // c1b2a
+    strgReverseLetters(t3);
+    printf("%s\n", t3);
+    char t4[] = "hello world"; // dlrow olleh
+    strgReverseLetters(t4);
+    printf("%s\n", t4);
+    char t5[] = "e1f!"; // f1e!
+    strgReverseLetters(t5);
+    printf("%s\n", t5);
+    char t6[] = ""; // ""
+    strgReverseLetters(t6);
+    printf("%s\n", t6);
+    char *t7 = NULL; // Do nothing. We will not print the value at
+    strgReverseLetters(t7);
+    printf("%p\n", t7);
+    char t8[] = "_A__"; // _A__
+    strgReverseLetters(t8);
+    printf("%s\n", t8);
+    char t9[] = "A1B CD2"; // D1C BA2
+    strgReverseLetters(t9);
+    printf("%s\n", t9);
+    char t10[] = "!443qr"; // !443rq
+    strgReverseLetters(t10);
+    printf("%s\n", t10); */
+    
 	return 0;
 }

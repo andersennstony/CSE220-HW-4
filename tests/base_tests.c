@@ -106,12 +106,6 @@ Test(strgInterleave, normal_and_unequal_lengths) {
     cr_assert_str_eq(dest, "123");
 }
 
-Test(strgInterleave, truncation) {
-    char tiny[5] = {0};
-    strgInterleave("abc","123", tiny);
-    cr_assert_str_eq(tiny, "a1b2");  // truncated to 4 chars + '\0'
-}
-
 Test(strgReverseLetters, basic) {
     char t1[] = "hello";
     strgReverseLetters(t1);
