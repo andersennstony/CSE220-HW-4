@@ -15,11 +15,32 @@ int strgLen(const char *s) {
 }
 
 int encryptCaesar(const char *plaintext, char *ciphertext, int key) {
-	// TODO: implement
+    // We are assuming that the ciphertext is large enough to hold the plaintext
+    // And the __EOM__ marker and null character (plaintext + EOM + 1)
+	if ((plaintext == NULL) || (ciphertext == NULL))
+        return -2;
+    int i = 0;
+    char currentChar;
+    // Go through each character in plaintext
+    while ((currentChar = plaintext[i])){ // This is a variable assignment
+        if (currentChar >= 'A' && currentChar <= 'Z') // Uppercase letter
+            currentChar = (currentChar - 'A' + key + i) % 26 + 'A';
+        else if (currentChar >= 'a' && currentChar <= 'z') // Lowercase
+            currentChar = (currentChar - 'a' + key + i) % 26 + 'a';
+        else if (currentChar >= '0' && currentChar <= '9') // Number
+            currentChar = (currentChar - '0' + key + i * 2) % 10 + '0';
+        ciphertext[i] = currentChar;
+        i++;
+    }
+    // Add the __EOM__ marker
+    char *marker = "__EOM__";
+    ciphertext += i;
+    for (int j = 0; j < 8; j++)
+        ciphertext[j] = marker[j];
     (void)plaintext;
     (void)ciphertext;
     (void)key;
-    return 0;
+    return i;
 }
 
 int decryptCaesar(const char *ciphertext, char *plaintext, int key) {
@@ -43,11 +64,14 @@ int decryptCaesar(const char *ciphertext, char *plaintext, int key) {
 int main(int argc, char* argv[]){
 	(void)argc;
 	(void)argv;
-	/** CREATE TEST CASES HERE **/
-
-
-
 	
-	/** ---------------------- **/
+    char encryptedText[100] = {0};
+    printf("%d: ", encryptCaesar("System Fundamentals", encryptedText, 1));
+    printf("%s\n", encryptedText);
+    printf("%d: ", encryptCaesar("abc", encryptedText, 2));
+    printf("%s\n", encryptedText);
+    printf("%d: ", encryptCaesar("Ayb", encryptedText, 3));
+    printf("%s\n", encryptedText);
+
 	return 0;
 }
