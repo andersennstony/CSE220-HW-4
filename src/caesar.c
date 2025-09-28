@@ -175,6 +175,7 @@ int main(int argc, char* argv[]){
     printf("Characters encoded: %d. Ciphertext: %s\n", charsEncrypted, encryptedText); */
 
     // Decryption
+    /*
     char plainText[100] = {0};
     int charsDecrypted;
     charsDecrypted = decryptCaesar("ceg__EOM__", plainText, 2); // 3, abc
@@ -197,8 +198,7 @@ int main(int argc, char* argv[]){
     charsDecrypted = decryptCaesar("14 9 47__EOM__", plainText, 0); // 5, 12 3 45
     printf("Characters decrypted: %d. Plaintext: %s\n", charsDecrypted, plainText);
     charsDecrypted = decryptCaesar("A__EOM__", plainText, 1); // 1, Z
-    printf("Characters decrypted: %d. Plaintext: %s\n", charsDecrypted, plainText);
-    
+    printf("Characters decrypted: %d. Plaintext: %s\n", charsDecrypted, plainText); */    
 
 	return 0;
 }
