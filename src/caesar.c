@@ -133,70 +133,13 @@ int decryptCaesar(const char *ciphertext, char *plaintext, int key) {
 
 
 /**
- * Create all test cases inside of the main function below.
- * Run the test cases by first compiling with "make" and then 
- * running "./bin/caesar"
- * 
- * Before submmiting your assignment, please comment out your 
- * test cases for the TAs. 
- * Comment out if using criterion to test.
+ * The test cases are in base_tests.c using criterion
  */
 /*
 int main(int argc, char* argv[]){
 	(void)argc;
-	(void)argv; */
-	
-    // Encryption
-    /*
-    char encryptedText[100] = {0};
-    int charsEncrypted;
-    charsEncrypted = encryptCaesar("System Fundamentals", encryptedText, 1); // 18, Tavxjs Ndxomzscjrdl__EOM__
-    printf("Characters encoded: %d. Ciphertext: %s\n", charsEncrypted, encryptedText);
-    charsEncrypted = encryptCaesar("abc", encryptedText, 2); // 3, ceg__EOM__
-    printf("Characters encoded: %d. Ciphertext: %s\n", charsEncrypted, encryptedText);
-    charsEncrypted = encryptCaesar("Ayb", encryptedText, 3); // 3, Dcg__EOM__
-    printf("Characters encoded: %d. Ciphertext: %s\n", charsEncrypted, encryptedText);
-    charsEncrypted = encryptCaesar("Cse220", encryptedText, 1); // 6, Duh911__EOM__ 
-    printf("Characters encoded: %d. Ciphertext: %s\n", charsEncrypted, encryptedText);
-    charsEncrypted = encryptCaesar("CS", encryptedText, 0); // 2, CT__EOM__
-    printf("Characters encoded: %d. Ciphertext: %s\n", charsEncrypted, encryptedText);
-    charsEncrypted = encryptCaesar("", encryptedText, 5); // 0, undefined__EOM__
-    printf("Characters encoded: %d. Ciphertext: %s\n", charsEncrypted, encryptedText);
-    charsEncrypted = encryptCaesar("Z", encryptedText, 1); // 1, A__EOM__
-    printf("Characters encoded: %d. Ciphertext: %s\n", charsEncrypted, encryptedText);
-    charsEncrypted = encryptCaesar(NULL, encryptedText, 3); // -2, encryptedText remains same
-    printf("Characters encoded: %d. Ciphertext: %s\n", charsEncrypted, encryptedText);
-    printf("Characters encoded: %d\n", encryptCaesar("12345", NULL, 0)); // Prints -2
-    charsEncrypted = encryptCaesar("12 3 45", encryptedText, 0); // 5, 14 9 47__EOM__
-    printf("Characters encoded: %d. Ciphertext: %s\n", charsEncrypted, encryptedText);
-    charsEncrypted = encryptCaesar("__aBc_.", encryptedText, 6); // 3, __iKm_.__EOM__
-    printf("Characters encoded: %d. Ciphertext: %s\n", charsEncrypted, encryptedText); */
+	(void)argv; 
 
-    // Decryption
-    /*
-    char plainText[100] = {0};
-    int charsDecrypted;
-    charsDecrypted = decryptCaesar("ceg__EOM__", plainText, 2); // 3, abc
-    printf("Characters decrypted: %d. Plaintext: %s\n", charsDecrypted, plainText);
-    charsDecrypted = decryptCaesar("Dcg__EOM__", plainText, 3); // 3, Ayb
-    printf("Characters decrypted: %d. Plaintext: %s\n", charsDecrypted, plainText);
-    charsDecrypted = decryptCaesar("Duh911__EOM__", plainText, 1); // 6, CSE220
-    printf("Characters decrypted: %d. Plaintext: %s\n", charsDecrypted, plainText);
-    charsDecrypted = decryptCaesar("CT__EOM__", plainText, 0); // 2, CS
-    printf("Characters decrypted: %d. Plaintext: %s\n", charsDecrypted, plainText);
-    charsDecrypted = decryptCaesar("Tavxjs Ndxomzscjrdl__EOM__", plainText, 1); // 18, System Fundamentals
-    printf("Characters decrypted: %d. Plaintext: %s\n", charsDecrypted, plainText);
-    charsDecrypted = decryptCaesar("undefined__EOM__", plainText, 5); // 0, undefined
-    printf("Characters decrypted: %d. Plaintext: %s\n", charsDecrypted, plainText);
-    printf("%d\n", decryptCaesar(NULL, plainText, 5)); // -2
-    charsDecrypted = decryptCaesar("__iKm_.__EOM__", plainText, 6); // 3, __aBc_.
-    printf("Characters decrypted: %d. Plaintext: %s\n", charsDecrypted, plainText);
-    charsDecrypted = decryptCaesar("Will not decode", plainText, 3); // -1, plainText remains same
-    printf("Characters decrypted: %d. Plaintext: %s\n", charsDecrypted, plainText);
-    charsDecrypted = decryptCaesar("14 9 47__EOM__", plainText, 0); // 5, 12 3 45
-    printf("Characters decrypted: %d. Plaintext: %s\n", charsDecrypted, plainText);
-    charsDecrypted = decryptCaesar("A__EOM__", plainText, 1); // 1, Z
-    printf("Characters decrypted: %d. Plaintext: %s\n", charsDecrypted, plainText); */    
-
-//	return 0;
-// }
+return 0;
+}
+*/

@@ -13,6 +13,10 @@ Test(strgLen, basic) {
     cr_assert_eq(strgLen("System Fundamental"), 18);
     cr_assert_eq(strgLen("1"), 1);
     cr_assert_eq(strgLen(""), 0);
+    cr_assert_eq(strgLen("Hello"), 5);
+    cr_assert_eq(strgLen("Hello!"), 6);
+    cr_assert_eq(strgLen("Hi"), 2);
+    cr_assert_eq(strgLen("Hello world!"), 12);
 }
 
 Test(strgLen, null_input) {
@@ -23,6 +27,27 @@ Test(strgCopy, normal_and_empty) {
     char dest[32] = {0};
     strgCopy(dest, "Computer Science");
     cr_assert_str_eq(dest, "Computer Science");
+    
+    strgCopy(dest, "CSE-220");
+    cr_assert_str_eq(dest, "CSE-220");
+    
+    strgCopy(dest, "System Fundamental");
+    cr_assert_str_eq(dest, "System Fundamental");
+    
+    strgCopy(dest, "1");
+    cr_assert_str_eq(dest, "1");
+    
+    strgCopy(dest, "abcde");
+    cr_assert_str_eq(dest, "abcde");
+    
+    strgCopy(dest, ".2f");
+    cr_assert_str_eq(dest, ".2f");
+    
+    strgCopy(dest, "9876");
+    cr_assert_str_eq(dest, "9876");
+    
+    strgCopy(dest, " ");
+    cr_assert_str_eq(dest, " ");
 
     dest[0] = '\0';
     strgCopy(dest, "");
@@ -57,6 +82,26 @@ Test(strgChangeCase, flip_only_non_adjacent_to_digits) {
     char s5[] = "_X_";
     strgChangeCase(s5);
     cr_assert_str_eq(s5, "_x_");
+
+    char s6[] = "System Fundamental220";
+    strgChangeCase(s6);
+    cr_assert_str_eq(s6, "sYSTEM fUNDAMENTAl220");
+
+    char s7[] = "a12b3cde4fg";
+    strgChangeCase(s7);
+    cr_assert_str_eq(s7, "a12b3cDe4fG");
+
+    char s8[] = "9AA_.Z.2E";
+    strgChangeCase(s8);
+    cr_assert_str_eq(s8, "9Aa_.z.2E");
+
+    char s9[] = "A9B";
+    strgChangeCase(s9);
+    cr_assert_str_eq(s9, "A9B");
+
+    char s10[] = "aBcDeFg2HiJkLmNoP5";
+    strgChangeCase(s10);
+    cr_assert_str_eq(s10, "AbCdEfg2HIjKlMnOP5");
 }
 
 Test(strgChangeCase, empty_and_digit_only) {
@@ -74,6 +119,11 @@ Test(strgDiff, differences_and_equals) {
     cr_assert_eq(strgDiff("CSE-220","CSE220"), 3);
     cr_assert_eq(strgDiff("CSE220","SE220"), 0);
     cr_assert_eq(strgDiff("",""), -1);
+    cr_assert_eq(strgDiff("1234","1234"), -1);
+    cr_assert_eq(strgDiff("98765","98765 "), 5);
+    cr_assert_eq(strgDiff("Hello world","Helloworld"), 5);
+    cr_assert_eq(strgDiff("123","456"), 0);
+    cr_assert_eq(strgDiff("ABC","ACB"), 1);
 }
 
 Test(strgDiff, null_inputs) {
@@ -101,6 +151,18 @@ Test(strgInterleave, normal_and_unequal_lengths) {
 
     strgInterleave("","123", dest);
     cr_assert_str_eq(dest, "123");
+
+    strgInterleave("HLOWRD", "EL OL", dest);
+    cr_assert_str_eq(dest, "HELLO WORLD");
+
+    strgInterleave("432", "A", dest);
+    cr_assert_str_eq(dest, "4A32");
+
+    strgInterleave("B", "357", dest);
+    cr_assert_str_eq(dest, "B357");
+
+    strgInterleave("abcefg", "./d", dest);
+    cr_assert_str_eq(dest, "a.b/cdefg");
 }
 
 Test(strgReverseLetters, basic) {
@@ -124,9 +186,25 @@ Test(strgReverseLetters, basic) {
     strgReverseLetters(t5);
     cr_assert_str_eq(t5, "_X_");
 
-    char t6[] = "";
+    char t6[] = "_A__";
     strgReverseLetters(t6);
-    cr_assert_str_eq(t6, "");
+    cr_assert_str_eq(t6, "_A__");
+
+    char t7[] = "A1B CD2";
+    strgReverseLetters(t7);
+    cr_assert_str_eq(t7, "D1C BA2");
+
+    char t8[] = "!443qr";
+    strgReverseLetters(t8);
+    cr_assert_str_eq(t8, "!443rq");
+
+    char t9[] = "__AB_C..";
+    strgReverseLetters(t9);
+    cr_assert_str_eq(t9, "__CB_A..");
+
+    char t10[] = "ab";
+    strgReverseLetters(t10);
+    cr_assert_str_eq(t10, "ba");
 }
 
 /*
@@ -148,11 +226,20 @@ Test(encryptCaesar, basic_shifts) {
     cr_assert_eq(encryptCaesar("Cse220", out, 1), 6);
     cr_assert_str_eq(out, "Duh911__EOM__");
 
-    cr_assert_eq(encryptCaesar("CS",   out, 0), 2);
+    cr_assert_eq(encryptCaesar("CS", out, 0), 2);
     cr_assert_str_eq(out, "CT__EOM__");
 
     cr_assert_eq(encryptCaesar("System Fundamentals", out, 1), 18);
     cr_assert_str_eq(out, "Tavxjs Ndxomzscjrdl__EOM__");
+
+    cr_assert_eq(encryptCaesar("Z", out, 1), 1);
+    cr_assert_str_eq(out, "A__EOM__");
+
+    cr_assert_eq(encryptCaesar("12 3 45", out, 0), 5);
+    cr_assert_str_eq(out, "14 9 47__EOM__");
+
+    cr_assert_eq(encryptCaesar("__aBc_.", out, 6), 3);
+    cr_assert_str_eq(out, "__iKm_.__EOM__");
 }
 
 Test(encryptCaesar, empty_input) {
@@ -171,9 +258,14 @@ Test(encryptCaesar, null_args) {
 
 Test(decryptCaesar, basic_unshifts) {
     char out[64] = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+    // With each decryptCaesar() call, the output string may decrease in length
+    // It can never increase back in length
 
     cr_assert_eq(decryptCaesar("Tavxjs Ndxomzscjrdl__EOM__", out, 1), 18);
     cr_assert_str_eq(out, "System Fundamentals");
+
+    cr_assert_eq(decryptCaesar("__iKm_.__EOM__", out, 6), 3);
+    cr_assert_str_eq(out, "__aBc_.");
 
     cr_assert_eq(decryptCaesar("Duh911__EOM__", out, 1), 6);
     cr_assert_str_eq(out, "Cse220");
