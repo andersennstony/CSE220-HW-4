@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include "strgPtr.h"
+// Andersen Ngai 116314345
 
 int strgLen(const char *s) {
     // Does not include the null character

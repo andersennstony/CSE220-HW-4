@@ -1,3 +1,24 @@
+For the decryption Caesar cipher, if you are using the same output plaintext string for multiple tests,
+Order the tests by decreasing ciphertext length
+
+If the ciphertext for test 1 has a length of 12 and the ciphertext for the next test is shorter, like 8,
+Then the plaintext from test 2 will be truncated
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Homework 4
 Welcome to your second programming assignment in CSE 220.
 

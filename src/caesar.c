@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "caesar.h" 
 #include "strgPtr.h"
+// Andersen Ngai 116314345
 
 int encryptCaesar(const char *plaintext, char *ciphertext, int key) {
     // We are assuming that the ciphertext is large enough to hold the plaintext
