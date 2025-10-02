@@ -2,18 +2,6 @@
 #include "caesar.h" 
 #include "strgPtr.h"
 
-int strgLen(const char *s) {
-    // Does not include the null character
-    if (s == NULL)
-        return -1;
-    int count = 0;
-    while (*s){
-        s++;
-        count++;
-    }
-    return count;
-}
-
 int encryptCaesar(const char *plaintext, char *ciphertext, int key) {
     // We are assuming that the ciphertext is large enough to hold the plaintext
     // And the __EOM__ marker and null character (plaintext + EOM + 1)
@@ -53,7 +41,7 @@ int encryptCaesar(const char *plaintext, char *ciphertext, int key) {
 }
 
 int decryptCaesar(const char *ciphertext, char *plaintext, int key) {
-	if ((plaintext == NULL) || (ciphertext == NULL))
+	if ((plaintext == NULL) || (ciphertext == NULL)) // -2 error code
         return -2;
     // Find the first __EOM__ marker
     // First, find the length of the ciphertext
@@ -81,6 +69,11 @@ int decryptCaesar(const char *ciphertext, char *plaintext, int key) {
     // To make this return -1 instead, change the line below to if (markerIndex == 0)
     if (EOMFound == 0)
         return -1;
+
+    int plaintextLength = strgLen(plaintext); // Empty plaintext (error code 0)
+    if (plaintextLength == 0)
+        return 0;
+
     // Check for undefined__EOM__
     if (markerIndex >= 9){
         char undefined[] = "undefined";
@@ -99,6 +92,7 @@ int decryptCaesar(const char *ciphertext, char *plaintext, int key) {
     }
     char currentChar, shifted;
     int charsEncrypted = 0;
+    j = 0;
     for (i = 0; i < markerIndex; i++){
         currentChar = ciphertext[i];
         charsEncrypted++;
@@ -125,9 +119,12 @@ int decryptCaesar(const char *ciphertext, char *plaintext, int key) {
         }
         else
             charsEncrypted--;
-        plaintext[i] = currentChar;
+        if (i < plaintextLength){
+            plaintext[i] = currentChar;
+            j++;
+        }
     }
-    plaintext[i] = 0; // Do not forget the null character
+    plaintext[j] = 0; // Do not forget the null character
     (void)ciphertext;
     (void)plaintext;
     (void)key;
@@ -144,9 +141,10 @@ int decryptCaesar(const char *ciphertext, char *plaintext, int key) {
  * test cases for the TAs. 
  * Comment out if using criterion to test.
  */
+/*
 int main(int argc, char* argv[]){
 	(void)argc;
-	(void)argv;
+	(void)argv; */
 	
     // Encryption
     /*
@@ -200,5 +198,5 @@ int main(int argc, char* argv[]){
     charsDecrypted = decryptCaesar("A__EOM__", plainText, 1); // 1, Z
     printf("Characters decrypted: %d. Plaintext: %s\n", charsDecrypted, plainText); */    
 
-	return 0;
-}
+//	return 0;
+// }

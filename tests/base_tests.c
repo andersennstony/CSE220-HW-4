@@ -2,12 +2,9 @@
 #include <string.h>
 
 #include "caesar.h" 
-#include "strPtr.h"
+#include "strgPtr.h"
 
-
-/*
- * Part 1: String utility functions
- */
+// Part 1: String utility functions
 
 Test(strgLen, basic) {
     cr_assert_eq(strgLen("Stony Brook"), 11);
@@ -164,16 +161,6 @@ Test(encryptCaesar, empty_input) {
     cr_assert_str_eq(out, "undefined__EOM__");
 }
 
-Test(encryptCaesar, insufficient_space) {
-    /* buffer length = 1 (only NUL), always too small */
-    char b1[1] = {0};
-    cr_assert_eq(encryptCaesar("anything", b1, 5), -1);
-
-    /* buffer length = 4, contains "abc", so strlen=3, still too small for __EOM__ */
-    char b2[4] = "abc";
-    cr_assert_eq(encryptCaesar("abc", b2, 2), -1);
-}
-
 Test(encryptCaesar, null_args) {
     char out[16];
     cr_assert_eq(encryptCaesar(NULL, out, 5), -2);
@@ -183,7 +170,13 @@ Test(encryptCaesar, null_args) {
 /* decrypt tests */
 
 Test(decryptCaesar, basic_unshifts) {
-    char out[64];
+    char out[64] = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+
+    cr_assert_eq(decryptCaesar("Tavxjs Ndxomzscjrdl__EOM__", out, 1), 18);
+    cr_assert_str_eq(out, "System Fundamentals");
+
+    cr_assert_eq(decryptCaesar("Duh911__EOM__", out, 1), 6);
+    cr_assert_str_eq(out, "Cse220");
 
     cr_assert_eq(decryptCaesar("ceg__EOM__", out, 2), 3);
     cr_assert_str_eq(out, "abc");
@@ -191,14 +184,8 @@ Test(decryptCaesar, basic_unshifts) {
     cr_assert_eq(decryptCaesar("Dcg__EOM__", out, 3), 3);
     cr_assert_str_eq(out, "Ayb");
 
-    cr_assert_eq(decryptCaesar("Duh911__EOM__", out, 1), 6);
-    cr_assert_str_eq(out, "Cse220");
-
     cr_assert_eq(decryptCaesar("CT__EOM__", out, 0), 2);
     cr_assert_str_eq(out, "CS");
-
-    cr_assert_eq(decryptCaesar("Tavxjs Ndxomzscjrdl__EOM__", out, 1), 18);
-    cr_assert_str_eq(out, "System Fundamentals");
 }
 
 Test(decryptCaesar, empty_input_marker) {

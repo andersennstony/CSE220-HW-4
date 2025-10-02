@@ -124,9 +124,11 @@ void strgReverseLetters(char *s) {
  * test cases for the TAs. 
  * Comment out if using criterion to test.
  */
+
+/*
 int main(int argc, char* argv[]){
 	(void)argc;
-	(void)argv;
+	(void)argv; */
 	
     // strgLen()
     /*
@@ -275,5 +277,5 @@ int main(int argc, char* argv[]){
     strgReverseLetters(t10);
     printf("%s\n", t10); */
     
-	return 0;
-}
+//	return 0;
+// }
